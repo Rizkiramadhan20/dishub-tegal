@@ -33,8 +33,10 @@ require_once 'fetch_data.php';
 
     <!-- Custom Scripts -->
     <script src="js/main.js" defer></script>
-    <script src="js/toast.js" defer></script>
-    <!-- <script src="js/animations.js" defer></script> -->
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/animations.js" defer></script>
     <?php if (isset($_SESSION['toast'])): ?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -72,13 +74,14 @@ require_once 'fetch_data.php';
                 </p>
 
                 <!-- Call to Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 md:mb-16">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 md:mb-16 home-cta">
                     <a href="#about"
-                        class="inline-block px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 bg-blue-600 text-white font-semibold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:bg-blue-700 transition duration-300 home-cta transform scale-95 hover:scale-105">
+                        class="inline-block px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 bg-blue-600 text-white font-semibold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform scale-95 hover:scale-105">
                         <span>Tentang kami</span>
                     </a>
+
                     <a href="#education"
-                        class="inline-block px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 bg-white text-gray-800 font-semibold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:bg-gray-100 border border-gray-300 transition duration-300 home-cta transform scale-95 hover:scale-105">
+                        class="inline-block px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 bg-white text-gray-800 font-semibold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:bg-gray-100 border border-gray-300 transition duration-300  transform scale-95 hover:scale-105">
                         <span>Belajar Sekarang</span>
                     </a>
                 </div>
@@ -302,10 +305,31 @@ require_once 'fetch_data.php';
                     <div class="flex gap-4" style="min-width: max-content;">
                         <?php foreach ($gallery_contents as $gallery): ?>
                         <div
-                            class="relative overflow-hidden rounded-xl shadow-lg w-[240px] aspect-[4/3] flex-shrink-0 gallery-card">
-                            <img src="dashboard/uploads/gallery/<?php echo htmlspecialchars($gallery['image']); ?>"
-                                alt="<?php echo htmlspecialchars($gallery['title']); ?>"
-                                class="w-full h-full object-cover" />
+                            class="relative group overflow-hidden rounded-xl shadow-lg w-[240px] aspect-[4/3] flex-shrink-0 gallery-card">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="dashboard/uploads/gallery/<?php echo htmlspecialchars($gallery['image']); ?>"
+                                    alt="<?php echo htmlspecialchars($gallery['title']); ?>"
+                                    class="w-full h-full object-cover transition-all duration-500 group-hover:scale-110" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <h3 class="text-white text-lg font-semibold mb-2">
+                                            <?php echo htmlspecialchars($gallery['title']); ?>
+                                        </h3>
+                                        <div class="flex items-center gap-3">
+                                            <button
+                                                class="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors duration-300 view-image-btn"
+                                                data-modal-target="imageModal" data-modal-toggle="imageModal"
+                                                data-image="dashboard/uploads/gallery/<?php echo htmlspecialchars($gallery['image']); ?>"
+                                                data-title="<?php echo htmlspecialchars($gallery['title']); ?>">
+                                                <i class='bx bx-show text-white text-xl'></i>
+                                                <span class="text-white text-sm font-medium">View image</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <?php endforeach; ?>
                     </div>

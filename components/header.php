@@ -11,6 +11,11 @@ $current_hash = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI
 function isActive($page, $hash = '') {
     global $current_page, $current_hash;
     
+    // If we're on berita.php, don't highlight any navigation items
+    if ($current_page === 'berita.php') {
+        return false;
+    }
+    
     if ($page === 'index.php' && empty($hash)) {
         return $current_page === 'index.php' && empty($current_hash);
     }
@@ -39,27 +44,27 @@ function isActive($page, $hash = '') {
         <!-- Desktop Navigation -->
         <ul class="hidden md:flex items-center gap-6">
             <li>
-                <a href="#home"
+                <a href="<?php echo $current_page === 'berita.php' ? '/index.php#home' : '#home'; ?>"
                     class="px-3 py-2 <?php echo isActive('index.php', 'home') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Home</a>
             </li>
             <li>
-                <a href="#about"
+                <a href="<?php echo $current_page === 'berita.php' ? '/index.php#about' : '#about'; ?>"
                     class="px-3 py-2 <?php echo isActive('index.php', 'about') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">About</a>
             </li>
             <li>
-                <a href="#education"
+                <a href="<?php echo $current_page === 'berita.php' ? '/index.php#education' : '#education'; ?>"
                     class="px-3 py-2 <?php echo isActive('index.php', 'education') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Education</a>
             </li>
             <li>
-                <a href="#gallery"
+                <a href="<?php echo $current_page === 'berita.php' ? '/index.php#gallery' : '#gallery'; ?>"
                     class="px-3 py-2 <?php echo isActive('index.php', 'gallery') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Gallery</a>
             </li>
             <li>
-                <a href="#news"
+                <a href="<?php echo $current_page === 'berita.php' ? '/index.php#news' : '#news'; ?>"
                     class="px-3 py-2 <?php echo isActive('index.php', 'news') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">News</a>
             </li>
             <li>
-                <a href="#contact"
+                <a href="<?php echo $current_page === 'berita.php' ? '/index.php#contact' : '#contact'; ?>"
                     class="px-3 py-2 <?php echo isActive('index.php', 'contact') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Contact</a>
             </li>
         </ul>
@@ -95,7 +100,7 @@ function isActive($page, $hash = '') {
                 <div class="p-6">
                     <ul class="space-y-4">
                         <li>
-                            <a href="#home"
+                            <a href="<?php echo $current_page === 'berita.php' ? '/index.php#home' : '#home'; ?>"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'home') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
                                     class="material-icons text-2xl <?php echo isActive('index.php', 'home') ? 'text-blue-600' : 'text-gray-500'; ?>">home</span>
@@ -103,7 +108,7 @@ function isActive($page, $hash = '') {
                             </a>
                         </li>
                         <li>
-                            <a href="#about"
+                            <a href="<?php echo $current_page === 'berita.php' ? '/index.php#about' : '#about'; ?>"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'about') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
                                     class="material-icons text-2xl <?php echo isActive('index.php', 'about') ? 'text-blue-600' : 'text-gray-500'; ?>">info</span>
@@ -111,7 +116,7 @@ function isActive($page, $hash = '') {
                             </a>
                         </li>
                         <li>
-                            <a href="#education"
+                            <a href="<?php echo $current_page === 'berita.php' ? '/index.php#education' : '#education'; ?>"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'education') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
                                     class="material-icons text-2xl <?php echo isActive('index.php', 'education') ? 'text-blue-600' : 'text-gray-500'; ?>">school</span>
@@ -119,7 +124,7 @@ function isActive($page, $hash = '') {
                             </a>
                         </li>
                         <li>
-                            <a href="#gallery"
+                            <a href="<?php echo $current_page === 'berita.php' ? '/index.php#gallery' : '#gallery'; ?>"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'gallery') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
                                     class="material-icons text-2xl <?php echo isActive('index.php', 'gallery') ? 'text-blue-600' : 'text-gray-500'; ?>">photo_library</span>
@@ -127,7 +132,7 @@ function isActive($page, $hash = '') {
                             </a>
                         </li>
                         <li>
-                            <a href="#news"
+                            <a href="<?php echo $current_page === 'berita.php' ? '/index.php#news' : '#news'; ?>"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'news') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
                                     class="material-icons text-2xl <?php echo isActive('index.php', 'news') ? 'text-blue-600' : 'text-gray-500'; ?>">newspaper</span>
@@ -135,7 +140,7 @@ function isActive($page, $hash = '') {
                             </a>
                         </li>
                         <li>
-                            <a href="#contact"
+                            <a href="<?php echo $current_page === 'berita.php' ? '/index.php#contact' : '#contact'; ?>"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'contact') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
                                     class="material-icons text-2xl <?php echo isActive('index.php', 'contact') ? 'text-blue-600' : 'text-gray-500'; ?>">contact_mail</span>
@@ -227,4 +232,3 @@ function isActive($page, $hash = '') {
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="/js/header.js"></script>
