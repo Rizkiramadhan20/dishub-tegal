@@ -73,13 +73,13 @@ require_once 'fetch_data.php';
 
                 <!-- Call to Action Buttons -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 md:mb-16">
-                    <a href="#"
+                    <a href="#about"
                         class="inline-block px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 bg-blue-600 text-white font-semibold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:bg-blue-700 transition duration-300 home-cta transform scale-95 hover:scale-105">
-                        <span>Get start</span>
+                        <span>Tentang kami</span>
                     </a>
-                    <a href="#"
+                    <a href="#education"
                         class="inline-block px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 bg-white text-gray-800 font-semibold text-sm sm:text-base md:text-lg rounded-full shadow-lg hover:bg-gray-100 border border-gray-300 transition duration-300 home-cta transform scale-95 hover:scale-105">
-                        <span>Watch demo</span>
+                        <span>Belajar Sekarang</span>
                     </a>
                 </div>
 
