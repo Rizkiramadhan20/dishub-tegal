@@ -90,6 +90,9 @@ Database terdiri dari beberapa tabel utama:
 - CSS3
 - JavaScript
 - Tailwind CSS
+- Gsap
+- CodeMirror
+- Flowbite
 
 ## Sistem Animasi
 
