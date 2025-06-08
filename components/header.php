@@ -30,7 +30,7 @@ function isActive($page, $hash = '') {
         'py-4': !isScrolled,
         'shadow-md': isScrolled,
         'shadow-sm': !isScrolled
-    }" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50;">
+    }" style="position: fixed; top: 0; left: 0; right: 0; z-index: 40;">
     <nav class="container mx-auto px-4 flex justify-between items-center">
         <a href="/index.php" class="flex items-center">
             <img src="/assets/logo.png" alt="Kreasi Digital Logo" class="h-10">
@@ -39,21 +39,24 @@ function isActive($page, $hash = '') {
         <!-- Desktop Navigation -->
         <ul class="hidden md:flex items-center gap-6">
             <li>
-                <a href="/"
-                    class="px-3 py-2 <?php echo isActive('index.php') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Home</a>
+                <a href="#home"
+                    class="px-3 py-2 <?php echo isActive('index.php', 'home') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Home</a>
             </li>
             <li>
                 <a href="#about"
-                    class="px-3 py-2 <?php echo isActive('index.php', 'about') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">About
-                    Us</a>
+                    class="px-3 py-2 <?php echo isActive('index.php', 'about') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">About</a>
             </li>
             <li>
-                <a href="#services"
-                    class="px-3 py-2 <?php echo isActive('index.php', 'services') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Services</a>
+                <a href="#education"
+                    class="px-3 py-2 <?php echo isActive('index.php', 'education') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Education</a>
             </li>
             <li>
-                <a href="#projects"
-                    class="px-3 py-2 <?php echo isActive('index.php', 'projects') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Projects</a>
+                <a href="#gallery"
+                    class="px-3 py-2 <?php echo isActive('index.php', 'gallery') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Gallery</a>
+            </li>
+            <li>
+                <a href="#news"
+                    class="px-3 py-2 <?php echo isActive('index.php', 'news') ? 'text-blue-600 after:w-full' : 'text-gray-600'; ?> hover:text-blue-600 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">News</a>
             </li>
             <li>
                 <a href="#contact"
@@ -92,10 +95,10 @@ function isActive($page, $hash = '') {
                 <div class="p-6">
                     <ul class="space-y-4">
                         <li>
-                            <a href="/"
-                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
+                            <a href="#home"
+                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'home') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
-                                    class="material-icons text-2xl <?php echo isActive('index.php') ? 'text-blue-600' : 'text-gray-500'; ?>">home</span>
+                                    class="material-icons text-2xl <?php echo isActive('index.php', 'home') ? 'text-blue-600' : 'text-gray-500'; ?>">home</span>
                                 <span class="text-lg">Home</span>
                             </a>
                         </li>
@@ -108,26 +111,34 @@ function isActive($page, $hash = '') {
                             </a>
                         </li>
                         <li>
-                            <a href="#services"
-                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'services') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
+                            <a href="#education"
+                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'education') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
-                                    class="material-icons text-2xl <?php echo isActive('index.php', 'services') ? 'text-blue-600' : 'text-gray-500'; ?>">miscellaneous_services</span>
-                                <span class="text-lg">Services</span>
+                                    class="material-icons text-2xl <?php echo isActive('index.php', 'education') ? 'text-blue-600' : 'text-gray-500'; ?>">school</span>
+                                <span class="text-lg">Education</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#projects"
-                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'projects') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
+                            <a href="#gallery"
+                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'gallery') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
-                                    class="material-icons text-2xl <?php echo isActive('index.php', 'projects') ? 'text-blue-600' : 'text-gray-500'; ?>">work</span>
-                                <span class="text-lg">Projects</span>
+                                    class="material-icons text-2xl <?php echo isActive('index.php', 'gallery') ? 'text-blue-600' : 'text-gray-500'; ?>">photo_library</span>
+                                <span class="text-lg">Gallery</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#news"
+                                class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'news') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
+                                <span
+                                    class="material-icons text-2xl <?php echo isActive('index.php', 'news') ? 'text-blue-600' : 'text-gray-500'; ?>">newspaper</span>
+                                <span class="text-lg">News</span>
                             </a>
                         </li>
                         <li>
                             <a href="#contact"
                                 class="flex items-center gap-4 px-4 py-4 <?php echo isActive('index.php', 'contact') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'; ?> rounded-xl transition-colors">
                                 <span
-                                    class="material-icons text-2xl <?php echo isActive('index.php', 'contact') ? 'text-blue-600' : 'text-gray-500'; ?>">payments</span>
+                                    class="material-icons text-2xl <?php echo isActive('index.php', 'contact') ? 'text-blue-600' : 'text-gray-500'; ?>">contact_mail</span>
                                 <span class="text-lg">Contact</span>
                             </a>
                         </li>

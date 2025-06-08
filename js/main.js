@@ -8,6 +8,165 @@ function validateRegister() {
   return true;
 }
 
+// Toast Notification
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toast-message");
+  const toastIcon = document.getElementById("toast-icon");
+
+  if (!toast || !toastMessage || !toastIcon) return;
+
+  // Set message
+  toastMessage.textContent = message;
+
+  // Set icon and color based on type
+  if (type === "success") {
+    toastIcon.className =
+      "inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-600 bg-green-50 rounded-lg";
+    toastIcon.innerHTML = '<i class="bx bx-check text-xl"></i>';
+  } else if (type === "error") {
+    toastIcon.className =
+      "inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-600 bg-red-50 rounded-lg";
+    toastIcon.innerHTML = '<i class="bx bx-x text-xl"></i>';
+  }
+
+  // Show toast
+  toast.classList.remove("hidden");
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+    hideToast();
+  }, 3000);
+}
+
+function hideToast() {
+  const toast = document.getElementById("toast");
+  if (toast) {
+    toast.classList.add("hidden");
+  }
+}
+
+// Video Modal Functionality
+function initializeVideoModal() {
+  const modalElement = document.getElementById("videoModal");
+  if (!modalElement) return;
+
+  const modal = new Modal(modalElement, {
+    placement: "center",
+    backdrop: "dynamic",
+    backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+    closable: true,
+    onHide: () => {
+      const modalVideo = document.getElementById("modalVideo");
+      if (modalVideo) {
+        modalVideo.pause();
+      }
+    },
+  });
+
+  // Get all watch video buttons
+  const watchButtons = document.querySelectorAll(".watch-video-btn");
+  const modalVideo = document.getElementById("modalVideo");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDescription = document.getElementById("modalDescription");
+  const closeButton = modalElement.querySelector(
+    '[data-modal-hide="videoModal"]'
+  );
+
+  // Add click event to each button
+  watchButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const videoSrc = this.getAttribute("data-video");
+      const title = this.getAttribute("data-title");
+      const description = this.getAttribute("data-description");
+
+      // Set modal content
+      modalVideo.querySelector("source").src = videoSrc;
+      modalVideo.load();
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+
+      // Show modal
+      modal.show();
+    });
+  });
+
+  // Handle close button click
+  closeButton.addEventListener("click", function () {
+    modal.hide();
+  });
+
+  // Handle click outside
+  modalElement.addEventListener("click", function (e) {
+    if (e.target === modalElement) {
+      modal.hide();
+    }
+  });
+
+  // Handle escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modalElement.classList.contains("hidden")) {
+      modal.hide();
+    }
+  });
+}
+
+// Image Modal Functionality
+function initializeImageModal() {
+  const modalElement = document.getElementById("imageModal");
+  if (!modalElement) return;
+
+  const modal = new Modal(modalElement, {
+    placement: "center",
+    backdrop: "dynamic",
+    backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+    closable: true,
+  });
+
+  // Get all view image buttons
+  const viewButtons = document.querySelectorAll(".view-image-btn");
+  const modalImage = document.getElementById("modalImage");
+  const modalTitle = document.getElementById("modalImageTitle");
+  const closeButton = modalElement.querySelector(
+    '[data-modal-hide="imageModal"]'
+  );
+
+  // Add click event to each button
+  viewButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const imageSrc = this.getAttribute("data-image");
+      const title = this.getAttribute("data-title");
+
+      // Set modal content
+      modalImage.src = imageSrc;
+      modalImage.alt = title;
+      modalTitle.textContent = title;
+
+      // Show modal
+      modal.show();
+    });
+  });
+
+  // Handle close button click
+  closeButton.addEventListener("click", function () {
+    modal.hide();
+  });
+
+  // Handle click outside
+  modalElement.addEventListener("click", function (e) {
+    if (e.target === modalElement) {
+      modal.hide();
+    }
+  });
+
+  // Handle escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modalElement.classList.contains("hidden")) {
+      modal.hide();
+    }
+  });
+}
+
 // Sidebar functionality
 document.addEventListener("DOMContentLoaded", function () {
   const sidebar = document.getElementById("sidebar-mobile");
@@ -91,187 +250,82 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize page transition
   addPageTransition();
-});
 
-// Testimonial Slider functionality
-document.addEventListener("DOMContentLoaded", function () {
-  const track = document.querySelector(".testimonial-track");
-  const slides = document.querySelectorAll(".testimonial-slide");
-  const sliderContainer = document.querySelector(".testimonial-slider");
+  // Initialize video modal
+  initializeVideoModal();
 
-  if (!track || !slides.length || !sliderContainer) return;
+  // Initialize image modal
+  initializeImageModal();
 
-  let currentIndex = 0;
-  let isAnimating = false;
-  let autoplayInterval;
-  let isDragging = false;
-  let startPos = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
+  // Function to handle active navigation links
+  function handleActiveLinks() {
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    const scrollPosition = window.scrollY + 100;
 
-  // Helper to add/remove transition
-  function setTransition(active) {
-    if (active) {
-      track.classList.add(
-        "transition-transform",
-        "duration-500",
-        "ease-in-out"
-      );
-    } else {
-      track.classList.remove(
-        "transition-transform",
-        "duration-500",
-        "ease-in-out"
-      );
-    }
-  }
+    // Find the current section
+    let currentSection = null;
 
-  // Initialize slider position
-  setTransition(true);
-  track.style.transform = "translateX(0)";
+    // Check all sections with IDs
+    document.querySelectorAll("section[id]").forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
 
-  // Function to update slider position
-  function updateSlider() {
-    if (isAnimating) return;
-    isAnimating = true;
-    setTransition(true);
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    // Update slides
-    slides.forEach((slide, index) => {
-      if (index === currentIndex) {
-        slide.classList.add("active");
-      } else {
-        slide.classList.remove("active");
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition < sectionTop + sectionHeight
+      ) {
+        currentSection = section.id;
       }
     });
-    setTimeout(() => {
-      isAnimating = false;
-    }, 500);
-  }
 
-  // Initialize active states
-  function initializeActiveStates() {
-    slides[0].classList.add("active");
-    track.style.transform = "translateX(0)";
-  }
+    // Update active state for all links
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      const linkSection =
+        href === "/" || href === "#home" ? "home" : href.substring(1);
 
-  function nextSlide() {
-    if (isAnimating) return;
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlider();
-  }
+      // Remove active classes
+      link.classList.remove("text-blue-600", "after:w-full", "bg-blue-50");
 
-  function prevSlide() {
-    if (isAnimating) return;
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateSlider();
-  }
-
-  function startAutoplay() {
-    autoplayInterval = setInterval(nextSlide, 5000);
-  }
-
-  function resetAutoplay() {
-    clearInterval(autoplayInterval);
-    startAutoplay();
-  }
-
-  initializeActiveStates();
-  startAutoplay();
-
-  // Pause autoplay on hover/touch
-  sliderContainer.addEventListener("mouseenter", () => {
-    clearInterval(autoplayInterval);
-  });
-  sliderContainer.addEventListener("mouseleave", () => {
-    startAutoplay();
-  });
-
-  // Touch and mouse events
-  function touchStart(event) {
-    isDragging = true;
-    startPos = getPositionX(event);
-    sliderContainer.style.cursor = "grabbing";
-    clearInterval(autoplayInterval);
-    setTransition(false);
-  }
-
-  function touchMove(event) {
-    if (!isDragging) return;
-    const currentPosition = getPositionX(event);
-    let diff = currentPosition - startPos;
-
-    // Add resistance at the edges
-    if (
-      (currentIndex === 0 && diff > 0) ||
-      (currentIndex === slides.length - 1 && diff < 0)
-    ) {
-      diff *= 0.3;
-    }
-
-    track.style.transform = `translateX(calc(-${
-      currentIndex * 100
-    }% + ${diff}px))`;
-  }
-
-  function touchEnd(event) {
-    if (!isDragging) return;
-    isDragging = false;
-    sliderContainer.style.cursor = "grab";
-    setTransition(true);
-
-    const endPos = getPositionX(event);
-    const diff = endPos - startPos;
-
-    // Determine if swipe was significant enough to change slide
-    const threshold = window.innerWidth * 0.2; // 20% of screen width
-
-    if (Math.abs(diff) > threshold) {
-      if (diff > 0) {
-        prevSlide();
-      } else {
-        nextSlide();
+      // Add active classes if it's the current section
+      if (linkSection === currentSection) {
+        link.classList.add("text-blue-600", "after:w-full");
+        if (link.closest(".mobile-menu")) {
+          link.classList.add("bg-blue-50");
+        }
       }
-    } else {
-      // Return to current slide if swipe wasn't significant
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    startAutoplay();
+    });
   }
 
-  function getPositionX(event) {
-    if (event.type.includes("mouse")) {
-      return event.pageX;
-    } else if (event.touches && event.touches[0]) {
-      return event.touches[0].clientX;
-    } else if (event.changedTouches && event.changedTouches[0]) {
-      return event.changedTouches[0].clientX;
-    }
-    return 0;
-  }
+  // Add scroll event listener
+  window.addEventListener("scroll", handleActiveLinks);
 
-  // Add event listeners for both touch and mouse events
-  sliderContainer.addEventListener("mousedown", touchStart);
-  sliderContainer.addEventListener("mousemove", touchMove);
-  sliderContainer.addEventListener("mouseup", touchEnd);
-  sliderContainer.addEventListener("mouseleave", touchEnd);
+  // Initial check for active links
+  handleActiveLinks();
 
-  // Touch events
-  sliderContainer.addEventListener("touchstart", touchStart, {
-    passive: true,
-  });
-  sliderContainer.addEventListener("touchmove", touchMove, {
-    passive: true,
-  });
-  sliderContainer.addEventListener("touchend", touchEnd);
+  // Handle smooth scrolling for navigation links
+  document.querySelectorAll('nav a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href");
 
-  // Add keyboard navigation
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") {
-      prevSlide();
-    } else if (e.key === "ArrowRight") {
-      nextSlide();
-    }
+      // Special handling for home link
+      if (targetId === "/" || targetId === "#home") {
+        const homeSection = document.getElementById("home");
+        if (homeSection) {
+          homeSection.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+        return;
+      }
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    });
   });
 });

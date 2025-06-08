@@ -9,12 +9,12 @@ $unread_contacts = 0;
 $unread_contacts_list = [];
 try {
     require_once __DIR__ . '/../config/db.php';
-    $unread_result = $db->query("SELECT COUNT(*) as unread FROM contacts WHERE is_read = 0");
+    $unread_result = $db->query("SELECT COUNT(*) as unread FROM contacts WHERE status = 'unread'");
     if ($unread_result) {
         $unread_contacts = (int)$unread_result->fetch_assoc()['unread'];
     }
     // Ambil semua pesan contact yang belum dibaca, urut terbaru
-    $unread_list_result = $db->query("SELECT name, email, created_at FROM contacts WHERE is_read = 0 ORDER BY created_at DESC");
+    $unread_list_result = $db->query("SELECT first_name, last_name, email, created_at FROM contacts WHERE status = 'unread' ORDER BY created_at DESC");
     if ($unread_list_result) {
         while ($row = $unread_list_result->fetch_assoc()) {
             $unread_contacts_list[] = $row;
@@ -59,7 +59,8 @@ try {
                             </div>
                             <div class="pl-3 w-full">
                                 <div class="text-gray-900 text-sm mb-1.5 font-semibold">
-                                    <?php echo htmlspecialchars($contact['name']); ?></div>
+                                    <?php echo htmlspecialchars($contact['first_name'] . ' ' . $contact['last_name']); ?>
+                                </div>
                                 <div class="text-xs text-gray-600 mb-1">
                                     <?php echo htmlspecialchars($contact['email']); ?></div>
                                 <div class="text-xs text-gray-500">
