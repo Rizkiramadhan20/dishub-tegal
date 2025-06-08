@@ -83,7 +83,7 @@ if ($db->connect_error) {
 
         <!-- Right: Image/Info -->
         <div class="hidden lg:block lg:w-1/2 relative">
-            <img src="assets/login.jpg" alt="Art" class="absolute inset-0 w-full h-full object-cover" />
+            <img src="assets/bg.jpg" alt="Art" class="absolute inset-0 w-full h-full object-cover" />
             <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div class="text-center text-white p-8">
                     <h2 class="text-3xl font-bold mb-4">Join our community</h2>
