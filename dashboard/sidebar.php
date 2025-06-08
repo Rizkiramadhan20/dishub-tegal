@@ -78,6 +78,15 @@
                 </a>
             </li>
 
+            <li>
+                <a href="/dashboard/accounts/accounts.php"
+                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group transition-all duration-200 <?= strpos($_SERVER['PHP_SELF'], 'accounts.php') !== false ? 'bg-blue-50 text-blue-600' : '' ?>">
+                    <span
+                        class="material-icons <?= strpos($_SERVER['PHP_SELF'], 'accounts.php') !== false ? 'text-blue-600' : 'text-gray-600' ?> group-hover:text-gray-900 transition-colors duration-200">account_circle</span>
+                    <span class="ml-3">Accounts</span>
+                </a>
+            </li>
+
             <!-- Bottom Section -->
             <div class="pt-4 mt-4 space-y-2 border-t border-gray-200">
                 <a href="/"
