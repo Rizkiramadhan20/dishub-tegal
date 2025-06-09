@@ -44,6 +44,7 @@ function initAnimations() {
       start: "top center",
       end: "bottom center",
       toggleActions: "play none none reverse",
+      once: true,
     },
   });
 
@@ -127,6 +128,7 @@ function initAnimations() {
       start: "top center",
       end: "bottom center",
       toggleActions: "play none none reverse",
+      once: true,
     },
   });
 
@@ -181,6 +183,7 @@ function initAnimations() {
       start: "top center",
       end: "bottom center",
       toggleActions: "play none none reverse",
+      once: true,
     },
   });
 
@@ -257,6 +260,7 @@ function initAnimations() {
       start: "top center",
       end: "bottom center",
       toggleActions: "play none none reverse",
+      once: true,
     },
   });
 

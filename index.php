@@ -226,7 +226,7 @@ require_once 'fetch_data.php';
 
                 <!-- Pagination -->
                 <?php if ($total_pages > 1): ?>
-                <div class="flex justify-center mt-4 md:mt-12">
+                <div class="flex justify-center mt-12 md:mt-20">
                     <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                         <!-- Previous button -->
                         <a href="?page=<?php echo max(1, $page - 1); ?>#education"
